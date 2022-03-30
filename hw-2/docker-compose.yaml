@@ -1,0 +1,35 @@
+version: '3.0'
+
+networks:
+  hw2:
+    driver: bridge
+
+services:
+  php:
+    build: .
+    ports:
+      - 80:80
+    volumes:
+      - .:/var/www/html
+    networks:
+      - hw2
+      
+  db:
+    image: mysql:5.7.28
+    ports:
+      - 3306:3306
+    networks:
+      - hw2
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: hillel_hw_1
+
+  phpMyAdmin:
+    image: phpmyadmin/phpmyadmin:4.9.1
+    ports:
+      - 8081:80
+    networks:
+      - hw2 
+  

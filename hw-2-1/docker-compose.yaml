@@ -1,0 +1,33 @@
+version: '3.0'
+
+networks:
+  hw2-1:
+    driver: bridge
+
+services:
+  php:
+    build: .
+    ports:
+      - 80:80
+    volumes:
+      - .:/var/www/html
+    networks:
+      - hw2-1
+      
+  pgdb:
+    image: postgres:12.1
+    networks:
+      - hw2-1
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: root
+      POSTGRES_DB: hillel_hw_2_1
+
+  adminer:
+    image: adminer
+    restart: always
+    networks:
+      - hw2-1
+    ports:
+      - 8080:8080
