@@ -96,9 +96,9 @@ class RGBColors
 }
 
 
-$colorOne = new RGBColors(5, 10, 25);
+$colorOne = new RGBColors(200, 200, 200);
 
-$colorTwo = $colorOne->mix(new RGBColors(255, 255, 255));
+$colorTwo = $colorOne->mix(new RGBColors(100, 100, 100));
 
 print_r($colorTwo);
 
