@@ -1,0 +1,33 @@
+version: '3.0'
+
+networks:
+  hw-5:
+    driver: bridge
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Docker/Dockerfile
+    image: php:7.4.1-fpm
+    container_name: hillel_hw5_php
+    working_dir: /var/www
+    restart: unless-stopped
+    volumes:
+      - ./:/var/www
+    tty: true
+    networks:
+      - hw-5
+
+  webserver:
+    image: nginx:alpine
+    container_name: hillel_hw5_nginx
+    restart: unless-stopped
+    tty: true
+    ports: 
+      - "7777:80"
+    volumes:
+     - ./:/var/www
+     - ./Docker/nginx/:/etc/nginx/conf.d/
+    networks: 
+      - hw-5
