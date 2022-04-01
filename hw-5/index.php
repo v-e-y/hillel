@@ -18,6 +18,8 @@ class RGBColors
     private int $red;
     private int $green;
     private int $blue;
+    private const RGB_MIN_CHANNEL_LIM = 0;
+    private const RGB_MAX_CHANNEL_LIM = 255;
 
     public function __construct(int $red, int $green, int $blue)
     {
@@ -66,6 +68,21 @@ class RGBColors
         return intval(round(($colorChannelBase + $colorChannelWhichAdded) / 2));
     }
 
+    /**
+     * Check rgb channel limits
+     *
+     * @param integer $rgbChannel
+     * @return integer
+     */
+    private function isRgbChannelsWithinLimits(int $rgbChannel): int
+    {
+        if ($rgbChannel < self::RGB_MIN_CHANNEL_LIM || $rgbChannel > self::RGB_MAX_CHANNEL_LIM) {
+            throw new Exception('The given parameter should be an integer from 0 to 255');
+        } else {
+            return $rgbChannel;
+        }
+    }
+
 
     /*
     * Setters
@@ -73,29 +90,17 @@ class RGBColors
 
     private function setRedColor(int $redColor): void
     {
-        if ($redColor < 0 || $redColor > 255) {
-            throw new Exception('The given parameter should be an integer from 0 to 255');
-        }
-
-        $this->red = $redColor;
+        $this->red = $this->isRgbChannelsWithinLimits($redColor);
     }
 
     private function setGreenColor(int $greenColor): void
     {
-        if ($greenColor < 0 || $greenColor > 255) {
-            throw new Exception('The given parameter should be an integer from 0 to 255');
-        }
-
-        $this->green = $greenColor;
+        $this->green = $this->isRgbChannelsWithinLimits($greenColor);
     }
 
     private function setBlueColor(int $blueColor): void
     {
-        if ($blueColor < 0 || $blueColor > 255) {
-            throw new Exception('The given parameter should be an integer from 0 to 255');
-        }
-        
-        $this->blue = $blueColor;
+        $this->blue = $this->isRgbChannelsWithinLimits($blueColor);
     }
 
 
