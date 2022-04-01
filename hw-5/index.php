@@ -1,9 +1,13 @@
-<?php declare(strict_types=1);
+<?php 
 
-// for dev
+/**
+ * Hillel home work #5
+ */
+
+
+declare(strict_types=1);
+
 require_once './errors.php';
-
-echo 'Hi' . '<br>' . '<pre>';
 
 
 /**
@@ -24,84 +28,104 @@ class RGBColors
 
     /**
      * Compares two colors for identity.
+     * 
      * @param RGBColors $colorsToCompare
      * @return boolean
      */
-    public function isEquals(RGBColors $colorsToCompare) :bool
+    public function isEquals(RGBColors $colorsToCompare): bool
     {
-        if (($this->getRedColor() === $colorsToCompare->getRedColor()) && 
-            ($this->getGreenColor() === $colorsToCompare->getGreenColor()) &&
-            ($this->getBlueColor() === $colorsToCompare->getBlueColor())) {
-                return true;
-        }
-        return false;
+        return $this->getRedColor() === $colorsToCompare->getRedColor() && 
+            $this->getGreenColor() === $colorsToCompare->getGreenColor() &&
+            $this->getBlueColor() === $colorsToCompare->getBlueColor();    
     }
 
     /**
      * Mix two colors and get the third
+     * 
      * @param RGBColors $colorToMix
      * @return RGBColors
      */
-    public function mix(RGBColors $colorToMix) :RGBColors
+    public function mix(RGBColors $colorToMix): RGBColors
     {
-        function getMixedChannels(int $colorChannelBase, int $colorChannelWhichAdded) :int
-        {
-            return intval(round(($colorChannelBase + $colorChannelWhichAdded) / 2));
-        }
-
         return new RGBColors(
-            getMixedChannels($this->getRedColor(), $colorToMix->getRedColor()),
-            getMixedChannels($this->getGreenColor(), $colorToMix->getGreenColor()),
-            getMixedChannels($this->getBlueColor(), $colorToMix->getBlueColor())
+            $this->getMixedChannels($this->getRedColor(), $colorToMix->getRedColor()),
+            $this->getMixedChannels($this->getGreenColor(), $colorToMix->getGreenColor()),
+            $this->getMixedChannels($this->getBlueColor(), $colorToMix->getBlueColor())
         );
     }
+
+    /**
+     * Mixed two channels of rgb
+     *
+     * @param integer $colorChannelBase
+     * @param integer $colorChannelWhichAdded
+     * @return integer
+     */
+    private function getMixedChannels(int $colorChannelBase, int $colorChannelWhichAdded): int
+    {
+        return intval(round(($colorChannelBase + $colorChannelWhichAdded) / 2));
+    }
+
 
     /*
     * Setters
     */
-    // TODO Exceptions won't work. How they should work if I declared types everywhere?
-    private function setRedColor(int $redColor) :void
+
+    private function setRedColor(int $redColor): void
     {
-        $this->red = ($redColor >= 0 && $redColor <= 255) ? $redColor : new Exception('The given parameter should be an integer from 0 to 255');
+        if ($redColor < 0 || $redColor > 255) {
+            throw new Exception('The given parameter should be an integer from 0 to 255');
+        }
+
+        $this->red = $redColor;
     }
 
-    private function setGreenColor(int $greenColor) :void
+    private function setGreenColor(int $greenColor): void
     {
-        $this->green = ($greenColor >= 0 && $greenColor <= 255) ? $greenColor : new Exception('The given parameter should be an integer from 0 to 255');
+        if ($greenColor < 0 || $greenColor > 255) {
+            throw new Exception('The given parameter should be an integer from 0 to 255');
+        }
+
+        $this->green = $greenColor;
     }
 
-    private function setBlueColor(int $blueColor) :void
+    private function setBlueColor(int $blueColor): void
     {
-        $this->blue = ($blueColor >= 0 && $blueColor <= 255) ? $blueColor : new Exception('The given parameter should be an integer from 0 to 255');
+        if ($blueColor < 0 || $blueColor > 255) {
+            throw new Exception('The given parameter should be an integer from 0 to 255');
+        }
+        
+        $this->blue = $blueColor;
     }
+
 
     /*
     * Getters
     */
-    public function getRedColor() :int
+
+    public function getRedColor(): int
     {
         return $this->red;
     }
 
-    public function getGreenColor() :int
+    public function getGreenColor(): int
     {
         return $this->green;
     }
 
-    public function getBlueColor() :int
+    public function getBlueColor(): int
     {
         return $this->blue;
     }
 
 }
 
+echo '<pre>';
 
-$colorOne = new RGBColors(200, 200, 200);
-
+$colorOne = new RGBColors(256, 200, 200);
 $colorTwo = $colorOne->mix(new RGBColors(100, 100, 100));
 
 print_r($colorTwo);
-
 
 if ($colorOne->isEquals($colorTwo)) {
     echo 'color is equal' . '<br>';
@@ -109,8 +133,4 @@ if ($colorOne->isEquals($colorTwo)) {
     echo 'not equal' . '<br>';
 }
 
-/*
-echo $colorOne->getRedColor() . '<br>';
-echo $colorOne->getGreenColor() . '<br>';
-echo $colorOne->getBlueColor();
-*/
+echo '</pre>';
