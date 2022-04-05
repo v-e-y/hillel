@@ -18,29 +18,30 @@ class AutoLoader
     {
         $dir = trim($dir, '\\') . DIRECTORY_SEPARATOR;
         $this->prefixes[$prefix] = $dir;
-
     }
 
-    public function register()
-    {
-        spl_autoload_register([$this, 'autoload']);
-    }
-
-    // TODO cheange property
-    public function findClass(string $class): string
+    protected function findClass(string $class): string
     {
         $posToSeparateClassFromPrefix = strrpos($class, '\\');
         $classPrefix = substr($class, 0, $posToSeparateClassFromPrefix);
         $className = substr($class, $posToSeparateClassFromPrefix + 1) . '.php';
 
-        return $this->prefixes[$classPrefix] . $className;
+        if (
+            file_exists($this->prefixes[$classPrefix] . $className) 
+            && is_readable($this->prefixes[$classPrefix] . $className)
+        ) {
+            return $this->prefixes[$classPrefix] . $className;
+        } 
     }
 
+    public function register(): void
+    {
+        spl_autoload_register([$this, 'autoload']);
+    }
 
     public function autoload(string $class): void
     {
-        if (file_exists($this->findClass($class)) && is_readable($this->findClass($class))) {
-            echo 'required';
+        if ($this->findClass($class)) {
             require $this->findClass($class);
         }
     }
