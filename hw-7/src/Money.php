@@ -86,7 +86,7 @@ class Money
 
     public function getCurrency(): string
     {
-        return $this->currency->getCurrency();
+        return $this->currency->getIsoCode();
     }
 
 }
