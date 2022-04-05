@@ -2,17 +2,10 @@
 
 declare(strict_types=1);
 
-ini_set('display_errors', '1'); 
-ini_set('display_startup_errors', '1'); 
-error_reporting(E_ALL);
-
 require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
-
 
 use hillel\hw7\Currency;
 use hillel\hw7\Money;
-
-echo '<pre>';
 
 
 $USDCurrency = new Currency('USD');
@@ -37,5 +30,7 @@ if ($moneyOne->equals($moneyTwo)) {
 $moneyThree = $moneyOne->add($moneyTwo);
 
 
+echo '<pre>';
 print_r($moneyThree);
+echo '</pre>';
 
