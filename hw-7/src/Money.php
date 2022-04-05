@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace hillel\hw7;
 
+use hillel\hw7\Currency as Currency;
+
 
 class Money
 {
     private $amount;
-    private Currency $currency;
+    private $currency;
 
     public function __construct($amount, Currency $currency)
     {
@@ -22,7 +24,7 @@ class Money
 
     public function add(Money $money): Money
     {
-        
+
     } 
 
     /**
