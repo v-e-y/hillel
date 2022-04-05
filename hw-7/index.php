@@ -15,12 +15,27 @@ use hillel\hw7\Money;
 echo '<pre>';
 
 
-$USDmoney = new Currency('USD');
-$HRNmoney = new Currency('UAH');
+$USDCurrency = new Currency('USD');
+$UAHCurrency = new Currency('UAH');
 
 
-if ($USDmoney->equals($HRNmoney->getIsoCode())) {
-    echo 'iso codes is equal';
+if ($USDCurrency->equals($UAHCurrency->getIsoCode())) {
+    echo 'Iso codes are equal' . PHP_EOL;
 } else {
-    echo 'non equal';
+    echo 'Iso codes non equal' . PHP_EOL;
 }
+
+$moneyOne = new Money(1.5, new Currency('USD'));
+$moneyTwo = new Money(45, new Currency('USD'));
+
+if ($moneyOne->equals($moneyTwo)) {
+    echo 'Money codes and amount are <strong>equal</strong>' . PHP_EOL;
+} else {
+    echo 'Money codes or amount <strong>non</strong> equal' . PHP_EOL;
+}
+
+$moneyThree = $moneyOne->add($moneyTwo);
+
+
+print_r($moneyThree);
+

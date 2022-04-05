@@ -27,6 +27,12 @@ class Currency
         return $this->isoCode === $isoCodeToCompare;
     }
 
+    /**
+     *  Accepts and checks currency iso code
+     *
+     * @param string $isoCode
+     * @return void
+     */
     public function setIsoCode(string $isoCode): void
     {
         // Check code and create currency object. If code is wrong return Exception.
@@ -35,6 +41,11 @@ class Currency
         $this->isoCode = $currency->getCurrencyCode();
     }
 
+    /**
+     * Get a standard currency code according to the standard ISO 4217
+     *
+     * @return string // iso code
+     */
     public function getIsoCode(): string
     {
         return $this->isoCode;
