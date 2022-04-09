@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hillel\Casts;
 
 class ArrayCast
 {
-    public static function set($value)
+    public static function set(array $value)
     {
         return json_encode($value);
     }
 
-    public static function get($value)
+    public static function get($value): array
     {
-//        var_dump($value);
-//        exit;
         return json_decode($value, true);
     }
 }

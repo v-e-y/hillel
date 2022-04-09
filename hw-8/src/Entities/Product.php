@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hillel\Entities;
 
 use Hillel\Casts\ArrayCast;
@@ -29,18 +31,56 @@ class Product
 
     public function __set($variable, $value)
     {
-        // @todo
+        switch ($variable) {
+            case 'price':
+                $this->price = MoneyCast::set($value);
+                break;
+            case 'attributes':
+                $this->attributes = ArrayCast::set($value);
+                break;
+            case 'updatedAt':
+                $this->updatedAt = DateTimeCast::set($value);
+                break;
+            default:
+                throw new \Exception('Something wrong with given parameters');
+                break;
+        }
+        
     }
 
     public function __get($variable)
     {
-        // @todo
+        switch ($variable) {
+            case 'price':
+                return MoneyCast::get($this->price);
+                break;
+            case 'attributes':
+                return ArrayCast::get($this->attributes);
+                break;
+            case 'updatedAt':
+                return DateTimeCast::get($this->updatedAt);
+                break;
+            default:
+                throw new \Exception('Something wrong with get methods');
+                break;
+        }
     }
-
+    
     public function __toString(): string
     {
-        // @todo
+        $productAttributes = '';
+        foreach (ArrayCast::get($this->attributes) as $key => $value) {
+            $productAttributes .= ' ' . $key . ' - ' . $value;
+            if ($key === array_key_last(ArrayCast::get($this->attributes))) {
+                $productAttributes .= '.';
+            } else {
+                $productAttributes .= ',';
+            }
+        }
 
-        return '';
+        return '<strong>Product price</strong> - ' . MoneyCast::get($this->price) . '<br>'
+            . '<strong>Attributes</strong>: ' . $productAttributes . '<br>'
+            . '<strong>And created or updated</strong>: ' . DateTimeCast::get($this->updatedAt);
     }
+    
 }

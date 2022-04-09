@@ -14,13 +14,13 @@ $product = new \Hillel\Entities\Product(
     $item['updated_at']
 );
 
-$attributes = $product->attributes;
-$attributes['year'] = 2021;
-$product->attributes = $attributes;
+$attributes = $product->attributes;     // get Product attributes
+$attributes['year'] = 2021;             // set attr product year
+$product->attributes = $attributes;     // Set Product attributes
 
-$product->price = 18500;
+$product->price = 18500;                // change product price
 
-$product->updatedAt = time();
+$product->updatedAt = time();           // 
 
 echo $product;
 
