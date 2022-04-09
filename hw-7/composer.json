@@ -1,0 +1,19 @@
+{
+    "name": "v-e-y/hw-7",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "VEY\\Hw7\\": "src/",
+            "hillel\\hw7\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "V-E-Y",
+            "email": "v.eduard.y@gmail.com"
+        }
+    ],
+    "require": {
+        "brick/money": "^0.5.3"
+    }
+}
