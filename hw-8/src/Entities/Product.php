@@ -31,39 +31,12 @@ class Product
 
     public function __set($variable, $value)
     {
-        switch ($variable) {
-            case 'price':
-                $this->price = MoneyCast::set($value);
-                break;
-            case 'attributes':
-                $this->attributes = ArrayCast::set($value);
-                break;
-            case 'updatedAt':
-                $this->updatedAt = DateTimeCast::set($value);
-                break;
-            default:
-                throw new \Exception('Something wrong with given parameters');
-                break;
-        }
-        
+        $this->$variable = $this->casts[$variable]::set($value);
     }
 
     public function __get($variable)
     {
-        switch ($variable) {
-            case 'price':
-                return MoneyCast::get($this->price);
-                break;
-            case 'attributes':
-                return ArrayCast::get($this->attributes);
-                break;
-            case 'updatedAt':
-                return DateTimeCast::get($this->updatedAt);
-                break;
-            default:
-                throw new \Exception('Something wrong with get methods');
-                break;
-        }
+        return $this->casts[$variable]::get($this->$variable);
     }
     
     public function __toString(): string
