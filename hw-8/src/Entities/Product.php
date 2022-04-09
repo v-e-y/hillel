@@ -38,12 +38,14 @@ class Product
     {
         return $this->casts[$variable]::get($this->$variable);
     }
-    
+
     public function __toString(): string
     {
         $productAttributes = '';
+
         foreach (ArrayCast::get($this->attributes) as $key => $value) {
             $productAttributes .= ' ' . $key . ' - ' . $value;
+
             if ($key === array_key_last(ArrayCast::get($this->attributes))) {
                 $productAttributes .= '.';
             } else {
@@ -55,5 +57,4 @@ class Product
             . '<strong>Attributes</strong>: ' . $productAttributes . '<br>'
             . '<strong>And created or updated</strong>: ' . DateTimeCast::get($this->updatedAt);
     }
-    
 }
