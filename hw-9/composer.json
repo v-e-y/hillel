@@ -3,7 +3,8 @@
     "autoload": {
         "psr-4": {
             "VEY\\Hw9\\": "src/",
-            "hillel\\": "src/"
+            "hillel\\": "src/",
+            "Hillel\\Hw9\\Shawarma\\": "src/"
         }
     },
     "authors": [
