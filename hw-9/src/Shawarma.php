@@ -7,7 +7,7 @@ namespace Hillel\Hw9\Shawarma;
 
 class Shawarma
 {
-   // Minimal default price
+   // Minimal default cost
    const  COAST = 65;
 
    /**
@@ -16,7 +16,7 @@ class Shawarma
     * @param float $coast // Shawarma coast
     * @return void
     */
-   public function setCoast(float $coast): void
+   public function setCost(float $coast): void
    {
       if ($coast < Shawarma::COAST) {
          throw new \Exception('Coast for ' . __CLASS__ . ' should be more or equal minimal \Shawarma coast');

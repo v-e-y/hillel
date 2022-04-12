@@ -11,7 +11,7 @@ final class Odesa extends Shawarma
 {
     private string $title = 'Шаурма Одесская';
 
-    //private float $coast = 60;
+    protected float $coast = Shawarma::COAST;
 
     private array $ingredients = [
         'огурцы маринованные',
@@ -23,20 +23,4 @@ final class Odesa extends Shawarma
         'салат коул слоу',
         'корейская морковь'
     ];
-
-    public function getCost(): float
-    {
-        
-    }
-
-    public function getIngredients(): array
-    {
-        
-    }
-
-    public function getTitle(): string
-    {
-        
-    }
-
 }

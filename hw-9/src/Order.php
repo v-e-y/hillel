@@ -10,46 +10,44 @@ class Order
 {
     private int $orderNumber;
     private array $orderItemsList;
+    private float $orderItemsCostSum;
+    private float $discount;
+    private float $orderTotal;
 
-    // order items schema
+    // order schema
     /*
     [
         orderItems [
-            item_1 => [
+            [
                 title => '', 
                 ingredients =>[],  
-                coast => 75
+                cost => 75
             ],
-            item_2 => [
+            [
                 title => '', 
                 ingredients =>[],  
-                coast => 75
+                cost => 75
             ]
-            'itemsCostSum' => float,
-            'discount' => \Discount(\User, \Order),
-            'total' => float
         ]
+        'itemsCostSum' => float,
+        'discount' => \Discount(\User, \Order),
+        'total' => float
     ]
      */
-
-    private float $orderItemCostSum;
-
-    private float $discount;
-
-    private float $orderTotal;
 
     public function __construct()
     {
         $this->orderNumber = random_int(0, 100);
     }
 
-    public function addOrderItem(Shawarma $shawarma): void
+    public function addOrderItem(array $orderIem): void
     {
-        $orderList[count($this->orderItemsList) + 1] = [
-            'title' => $shawarma->getTitle(),
-            'ingredients' => $shawarma->getIngredients(),
-            'coast' => $shawarma->getCost()
-        ];
+        $orderList['orderItems'] = $orderIem;
+    }
+
+    public function setOrderItemsCostSum(): void
+    {
+        $this->orderItemsCostSum = ShawarmaCalculator::price($this);
     }
 
     public function getOrderNumber(): int
@@ -57,8 +55,8 @@ class Order
         return $this->orderNumber;
     }
 
-    public function getOrder(): array
+    public function getOrderItemsList(): array
     {
-        return $this->orderItemsList;
+        return $this->orderItemsList['orderItems'];
     }
 }

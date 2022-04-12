@@ -2,46 +2,58 @@
 
 declare(strict_types=1);
 
-
 require_once $_SERVER['DOCUMENT_ROOT'] . './vendor/autoload.php';
 
-
-use Hillel\Hw9\Shawarma\Shawarma;
 use Hillel\Hw9\Shawarma\Odesa;
 use Hillel\Hw9\Shawarma\Beef;
 use Hillel\Hw9\Shawarma\Mutton;
 use Hillel\Hw9\Shawarma\Order;
+use Hillel\Hw9\Shawarma\ShawarmaCalculator;
 
-/**
- * Create new obj some shawarma
- * Create new Order 
- * Add shawarma to the order
- * 
- */
+// Create Shawarma obj.
+$odesaShaw = new Odesa;
+$beefShaw = new Beef;
+$muttonShaw = new Mutton;
 
-$beefS = new Beef;
+// Add non default prise to some obj.
+$beefShaw->setCost(75);
+$muttonShaw->setCost(82.50);
 
-$beefS->setCoast(82);
 
-$beefS->setIngredients([
-    'afgdsfgDFGDFG',
-    '/>,-><br>zdfD',
-    '_#$^$%&@!#$GF',
-    'test <?php',
-    'test'
-]);
+
 
 echo '<pre>';
 
 
-print_r($beefS->getIngredients());
+
+
+
+
+
+
+print_r($odesaShaw);
+print_r($beefShaw);
+print_r($muttonShaw);
+
 
 
 /*
-
-$order = new Order();
-
-$order->addNewItem(Shawarama);
-
+$arrEx = [
+    'orderItems' => [
+        [
+            'title' => 'hjjhkl', 
+            'ingredients' => [],  
+            'cost' => 65
+        ],
+        [
+            'title' => 'adfgsdfg', 
+            'ingredients' => [],  
+            'cost' => 75
+        ]
+    ],
+    'itemsCostSum' => 100,
+    'discount' => 10, // \Discount(\User, \Order),,
+    'total' => 100
+];
 */
 

@@ -11,6 +11,8 @@ final class Mutton extends Shawarma
 {
     private string $title = 'Шаурма из Баранины';
 
+    protected float $coast = Shawarma::COAST;
+
     private array $ingredients = [
         'острый соус',
         'огурцы маринованные',
@@ -20,20 +22,4 @@ final class Mutton extends Shawarma
         'мясо баранины',
         'лаваш арабский'
     ];
-
-    public function getCost(): float
-    {
-        
-    }
-
-    public function getIngredients(): array
-    {
-        
-    }
-
-    public function getTitle(): string
-    {
-        
-    }
-
 }
