@@ -40,9 +40,9 @@ class Order
         $this->orderNumber = random_int(0, 100);
     }
 
-    public function addOrderItem(array $orderIem): void
+    public function addOrderItem(array $orderItem): void
     {
-        $this->order['orderItems'][] = $orderIem;
+        $this->order['orderItems'][] = $orderItem;
     }
 
     public function setOrderItemsCostSum(): void
