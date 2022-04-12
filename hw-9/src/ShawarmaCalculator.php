@@ -8,7 +8,7 @@ use Hillel\Hw9\Shawarma\Shawarma;
 use Hillel\Hw9\Shawarma\Order;
 
 
-class ShawarmaCalculator
+final class ShawarmaCalculator
 {
     protected Shawarma $orderedShawarma;
     protected array $order;
