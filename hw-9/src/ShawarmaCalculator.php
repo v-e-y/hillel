@@ -10,16 +10,6 @@ use Hillel\Hw9\Shawarma\Order;
 
 final class ShawarmaCalculator
 {
-    // protected Shawarma $orderedShawarma;
-    // private Order $order;
-    /*
-    public function __construct(Shawarma $shawarma, Order $order)
-    {
-        $this->orderedShawarma = $shawarma;
-        $this->order = $order;
-    }
-    */
-
     /**
      * Add new item (shawarma) to the order 
      *
@@ -27,24 +17,13 @@ final class ShawarmaCalculator
      * @param Shawarma $shawarmaToOrder // Shawarma which need to add to the order
      * @return void
      */
-    public static function add(Order $order, Shawarma $shawarmaToOrder)
+    public static function add(Order $order, Shawarma $shawarmaToOrder): void
     {
         $order->addOrderItem([
             'title' => $shawarmaToOrder->getTitle(),
             'ingredients' => $shawarmaToOrder->getIngredients(),
             'cost' => $shawarmaToOrder->getCost()
         ]);
-    }
-
-    /**
-     * Just returns all shawarma ingredients
-     *
-     * @param Shawarma $shawarmaToOrder
-     * @return array // All shawarma ingredients
-     */
-    public static function getIngredients(Shawarma $shawarmaToOrder): array
-    {
-        return $shawarmaToOrder->getIngredients();
     }
 
     /**
@@ -57,4 +36,19 @@ final class ShawarmaCalculator
     {
         return array_sum(array_column($order->getOrderItemsList(), 'cost'));
     }
+
+    // "...методои ingredients для возврата списка ингредиентов без дублей" 
+    // Я так зрозумів що треба повернути всі інгрідиенти з всіх шаурм одним списком*
+    // Бо getIngredients вже є в класі Shawarma/
+    /**
+     * Returns all ingredients from all shawarma in order
+     *
+     * @param Shawarma $shawarmaToOrder
+     * @return array // All shawarma ingredients
+     */
+    public static function getIngredients(Order $order): array
+    {
+        return array_unique(call_user_func_array('array_merge', array_column($order->getOrderItemsList(), 'ingredients')));
+    }
+
 }

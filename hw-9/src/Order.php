@@ -9,7 +9,7 @@ use Hillel\Hw9\Shawarma\ShawarmaCalculator;
 class Order
 {
     private int $orderNumber;
-    private array $orderItemsList;
+    private array $order;
     private float $orderItemsCostSum;
     private float $discount;
     private float $orderTotal;
@@ -42,7 +42,7 @@ class Order
 
     public function addOrderItem(array $orderIem): void
     {
-        $orderList['orderItems'] = $orderIem;
+        $this->order['orderItems'][] = $orderIem;
     }
 
     public function setOrderItemsCostSum(): void
@@ -57,6 +57,6 @@ class Order
 
     public function getOrderItemsList(): array
     {
-        return $this->orderItemsList['orderItems'];
+        return $this->order['orderItems'];
     }
 }

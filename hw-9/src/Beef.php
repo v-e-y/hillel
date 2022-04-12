@@ -12,7 +12,8 @@ final class Beef extends Shawarma
     // Defaul Shawarma name
     protected string $title = 'Шаурма говяжья';
 
-    protected float $coast = Shawarma::COAST;
+    // Constant it default shawarma cost
+    protected float $cost = Shawarma::COST;
 
     // Default Shawarma ingredients
     protected array $ingredients = [

@@ -19,23 +19,28 @@ $muttonShaw = new Mutton;
 $beefShaw->setCost(75);
 $muttonShaw->setCost(82.50);
 
+// Create new order
+$order = new Order;
 
+// Rewrite ingredients
+$beefShaw->setIngredients(['meet', 'bread', 'sous']);
+
+
+// Add first item to the order
+ShawarmaCalculator::add($order, $odesaShaw);
+ShawarmaCalculator::add($order, $muttonShaw);
+ShawarmaCalculator::add($order, $beefShaw);
 
 
 echo '<pre>';
-
-
-
-
-
-
-
-
 print_r($odesaShaw);
 print_r($beefShaw);
 print_r($muttonShaw);
-
-
+print_r($order);
+print_r(ShawarmaCalculator::price($order));
+echo PHP_EOL;
+print_r(ShawarmaCalculator::getIngredients($order));
+echo '<pre>';
 
 /*
 $arrEx = [
@@ -51,9 +56,9 @@ $arrEx = [
             'cost' => 75
         ]
     ],
-    'itemsCostSum' => 100,
-    'discount' => 10, // \Discount(\User, \Order),,
-    'total' => 100
+    'itemsCostSum' => 100500,
+    'discount' => 50, // \Discount(\User, \Order),,
+    'total' => 100450
 ];
 */
 

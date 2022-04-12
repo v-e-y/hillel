@@ -9,11 +9,14 @@ use Hillel\Hw9\Shawarma\Shawarma;
 
 final class Mutton extends Shawarma
 {
-    private string $title = 'Шаурма из Баранины';
+    // Default shawarma name
+    protected string $title = 'Шаурма из Баранины';
 
-    protected float $coast = Shawarma::COAST;
+    // Constant it default shawarma cost
+    protected float $cost = Shawarma::COST;
 
-    private array $ingredients = [
+    // Default ingredients
+    protected array $ingredients = [
         'острый соус',
         'огурцы маринованные',
         'кинза',
