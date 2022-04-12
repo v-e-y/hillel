@@ -25,8 +25,7 @@ $order = new Order;
 // Rewrite ingredients
 $beefShaw->setIngredients(['meet', 'bread', 'sous']);
 
-
-// Add first item to the order
+// Add items to the order
 ShawarmaCalculator::add($order, $odesaShaw);
 ShawarmaCalculator::add($order, $muttonShaw);
 ShawarmaCalculator::add($order, $beefShaw);
@@ -41,6 +40,8 @@ print_r(ShawarmaCalculator::price($order));
 echo PHP_EOL;
 print_r(ShawarmaCalculator::getIngredients($order));
 echo '<pre>';
+
+
 
 /*
 $arrEx = [
