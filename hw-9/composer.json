@@ -1,0 +1,17 @@
+{
+    "name": "v-e-y/hw-9",
+    "autoload": {
+        "psr-4": {
+            "VEY\\Hw9\\": "src/",
+            "hillel\\": "src/",
+            "Hillel\\Hw9\\Shawarma\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "V-E-Y",
+            "email": "v.eduard.y@gmail.com"
+        }
+    ],
+    "require": {}
+}
