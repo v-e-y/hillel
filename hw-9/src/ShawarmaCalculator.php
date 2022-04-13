@@ -7,11 +7,10 @@ namespace Hillel\Hw9\Shawarma;
 use Hillel\Hw9\Shawarma\Shawarma;
 use Hillel\Hw9\Shawarma\Order;
 
-
 final class ShawarmaCalculator
 {
     /**
-     * Add new item (shawarma) to the order 
+     * Add new item (shawarma) to the order
      *
      * @param Order $order
      * @param Shawarma $shawarmaToOrder // Shawarma which need to add to the order
@@ -37,9 +36,6 @@ final class ShawarmaCalculator
         return array_sum(array_column($order->getOrderItemsList(), 'cost'));
     }
 
-    // "...методои ingredients для возврата списка ингредиентов без дублей" 
-    // Я так зрозумів що треба повернути всі інгрідиенти з всіх шаурм одним списком*
-    // Бо getIngredients вже є в класі Shawarma/
     /**
      * Returns all ingredients from all shawarma in order
      *
@@ -50,5 +46,4 @@ final class ShawarmaCalculator
     {
         return array_unique(call_user_func_array('array_merge', array_column($order->getOrderItemsList(), 'ingredients')));
     }
-
 }

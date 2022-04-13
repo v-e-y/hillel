@@ -6,14 +6,13 @@ namespace Hillel\Hw9\Shawarma;
 
 use Hillel\Hw9\Shawarma\Shawarma;
 
-
 final class Beef extends Shawarma
 {
     // Defaul Shawarma name
     protected string $title = 'Шаурма говяжья';
 
-    // Constant it default shawarma cost
-    protected float $cost = Shawarma::COST;
+    //  Default shawarma cost
+    protected float $cost = 75;
 
     // Default Shawarma ingredients
     protected array $ingredients = [
@@ -21,10 +20,10 @@ final class Beef extends Shawarma
         'говяжий окорок',
         'огурцы маринованные',
         'маринованный лук с барбарисом и зеленью', 
-        'салат коул слоу', 
+        'салат коул слоу',
         'тандырный лаваш',
-        'помидоры свежие', 
-        'хумус', 
+        'помидоры свежие',
+        'хумус',
         'соус тахин'
     ];
 }

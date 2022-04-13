@@ -11,29 +11,8 @@ class Order
     private int $orderNumber;
     private array $order;
     private float $orderItemsCostSum;
-    private float $discount;
-    private float $orderTotal;
-
-    // order schema
-    /*
-    [
-        orderItems [
-            [
-                title => '', 
-                ingredients =>[],  
-                cost => 75
-            ],
-            [
-                title => '', 
-                ingredients =>[],  
-                cost => 75
-            ]
-        ]
-        'itemsCostSum' => float,
-        'discount' => \Discount(\User, \Order),
-        'total' => float
-    ]
-     */
+    // private float $discount;
+    // private float $orderTotal;
 
     public function __construct()
     {

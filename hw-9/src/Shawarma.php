@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Hillel\Hw9\Shawarma;
 
-
 class Shawarma
 {
-   // Minimal default cost
-   const  COST = 65;
-
    /**
     * Set shawarma coast
     *

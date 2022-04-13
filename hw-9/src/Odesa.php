@@ -6,14 +6,13 @@ namespace Hillel\Hw9\Shawarma;
 
 use Hillel\Hw9\Shawarma\Shawarma;
 
-
 final class Odesa extends Shawarma
 {
     // Default shawarma name
     protected string $title = 'Шаурма Одесская';
 
-    // Constant it default shawarma cost
-    protected float $cost = Shawarma::COST;
+    // Default shawarma cost
+    protected float $cost = 69;
 
     // Default ingredients
     protected array $ingredients = [
