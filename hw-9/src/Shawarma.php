@@ -14,9 +14,6 @@ class Shawarma
     */
    public function setCost(float $cost): void
    {
-      if ($cost < Shawarma::COST) {
-         throw new \Exception('Cost for ' . __CLASS__ . ' should be more or equal minimal \Shawarma cost');
-      }
       $this->cost = $cost;
    }
 
