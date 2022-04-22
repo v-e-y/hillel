@@ -1,4 +1,8 @@
-/trash.php
+# Files
+trash.php
 task.md
+*.bak
+
+# Folders
 */vendor
 /vendor
