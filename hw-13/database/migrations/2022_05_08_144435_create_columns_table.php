@@ -18,10 +18,13 @@ class CreateColumnsTable extends Migration
             $table->string('title', 255);
             $table->bigInteger('order');
             $table->timestamps();
-            $table->unsignedBigInteger('board_id');
         });
 
-        Schema::create('columns', function (Blueprint $table) {
+        Schema::table('cards', function (Blueprint $table) {
+            $table->foreignId('column_id')->constrained();
+        });
+
+        Schema::table('columns', function (Blueprint $table) {
             $table->foreignId('board_id')->constrained();
         });
     }

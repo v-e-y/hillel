@@ -17,12 +17,12 @@ class CreateBoardsTable extends Migration
             $table->id();
             $table->string('title', 255);
             $table->timestamps();
-            $table->unsignedBigInteger('user_id');
         });
-        
+
         Schema::table('boards', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained();
         });
+
     }
 
     /**

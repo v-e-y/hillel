@@ -17,7 +17,6 @@ class CreateNotificationsTable extends Migration
             $table->id();
             $table->string('text', 255);
             $table->timestamps();
-            $table->unsignedBigInteger('card_id');
         });
         
         Schema::table('notifications', function (Blueprint $table) {
