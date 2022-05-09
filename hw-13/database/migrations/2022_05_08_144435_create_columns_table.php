@@ -15,7 +15,14 @@ class CreateColumnsTable extends Migration
     {
         Schema::create('columns', function (Blueprint $table) {
             $table->id();
+            $table->string('title', 255);
+            $table->bigInteger('order');
             $table->timestamps();
+            $table->unsignedBigInteger('board_id');
+        });
+
+        Schema::create('columns', function (Blueprint $table) {
+            $table->foreignId('board_id')->constrained();
         });
     }
 

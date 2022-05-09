@@ -15,7 +15,13 @@ class CreateBoardsTable extends Migration
     {
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
+            $table->string('title', 255);
             $table->timestamps();
+            $table->unsignedBigInteger('user_id');
+        });
+        
+        Schema::table('boards', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained();
         });
     }
 

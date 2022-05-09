@@ -15,7 +15,13 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
+            $table->string('text', 255);
             $table->timestamps();
+            $table->unsignedBigInteger('card_id');
+        });
+        
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->foreignId('card_id')->constrained();
         });
     }
 
