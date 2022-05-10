@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
@@ -42,6 +43,24 @@ class User extends Authenticatable
     */
 
     /**
+     * Get all of the boards for the User
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function boards(): HasMany
+    {
+        return $this->hasMany(Board::class);
+    }
+
+    /**
+     * Boards where the user exist
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function inBoards(): BelongsToMany
+    {
+        return $this->belongsToMany(Board::class, 'board_user', 'user_id', 'board_id');
+    }
+
+    /**
      * Get all of the cards for the User
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -51,12 +70,20 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all of the boards for the User
+     * Get all of the comments for the User
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function boards(): HasMany
+    public function comments(): HasMany
     {
-        return $this->hasMany(Board::class);
+        return $this->hasMany(Comment::class);
     }
 
+    /**
+     * Get all of the subscriptions for the User
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
 }
