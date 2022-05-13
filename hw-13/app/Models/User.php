@@ -8,6 +8,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
@@ -43,21 +45,21 @@ class User extends Authenticatable
     */
 
     /**
-     * Get all of the boards for the User
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Get the board associated with the User
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function boards(): HasMany
+    public function board(): HasOne
     {
-        return $this->hasMany(Board::class);
+        return $this->hasOne(User::class);
     }
 
     /**
-     * Boards where the user exist
+     * The boards that belong to the User
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function inBoards(): BelongsToMany
+    public function boards(): BelongsToMany
     {
-        return $this->belongsToMany(Board::class, 'board_user', 'user_id', 'board_id');
+        return $this->belongsToMany(Board::class);
     }
 
     /**
@@ -66,7 +68,7 @@ class User extends Authenticatable
      */
     public function cards(): HasMany
     {
-        return $this->hasMany(Card::class);
+        return $this->hasMany(Card::class, 'author_id');
     }
 
     /**

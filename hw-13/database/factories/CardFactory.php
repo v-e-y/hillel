@@ -18,8 +18,6 @@ class CardFactory extends Factory
         return [
             'title' => $this->faker->sentence(6),
             'description' => $this->faker->sentence(12),
-            'author_id' => User::factory(),
-            'column_id' => Column::factory()
         ];
     }
 }

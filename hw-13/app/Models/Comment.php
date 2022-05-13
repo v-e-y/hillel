@@ -32,11 +32,11 @@ class Comment extends Model
     }
 
     /**
-     * Get the columns that owns the Comment
+     * Get the card that owns the Comment
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function columns(): BelongsTo
+    public function card(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'foreign_key', 'other_key');
+        return $this->belongsTo(Card::class);
     }
 }

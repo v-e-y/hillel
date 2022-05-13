@@ -26,7 +26,7 @@ class Notification extends Model
      * Get the cards that owns the Notification
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function cards(): BelongsTo
+    public function card(): BelongsTo
     {
         return $this->belongsTo(Card::class);
     }

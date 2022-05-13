@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Column extends Model
 {
@@ -20,17 +21,15 @@ class Column extends Model
 
     /**
      * Get the boards that owns the Column
-     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function boards(): BelongsTo
+    public function board(): BelongsTo
     {
         return $this->belongsTo(Board::class);
     }
 
     /**
      * Get all of the cards for the Column
-     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function cards(): HasMany

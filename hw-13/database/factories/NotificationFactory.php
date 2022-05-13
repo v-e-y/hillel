@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Board;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ColumnFactory extends Factory
+class NotificationFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,8 +14,7 @@ class ColumnFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence(6),
-            'order' => $this->faker->randomNumber()
+            'text' => $this->faker->sentence(4)
         ];
     }
 }
