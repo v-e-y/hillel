@@ -29,11 +29,11 @@ class DatabaseSeeder extends Seeder
         // Create User(s)
         $user = User::factory($howManyUsersToCreate)->create();
 
-        $user->each(function($user) use (
-                $howManyBoardsToCreate, 
-                $howManyColumnsPerBoardCreate,
-                $howManyCardsPerUCCreate,
-                $howManyCommentsCreate
+        $user->each(function ($user) use (
+            $howManyBoardsToCreate,
+            $howManyColumnsPerBoardCreate,
+            $howManyCardsPerUCCreate,
+            $howManyCommentsCreate
         ) {
             // Create Board with random user (which will be owner) id
             Board::factory($howManyBoardsToCreate)
@@ -41,12 +41,12 @@ class DatabaseSeeder extends Seeder
                     'author_id' => User::all()->random()->id
                 ])
                 ->create();
-            
+
             // Made users which id is even a member of the boards
             if ($user->id % 2 === 0) {
                 $user->boardsMember()->attach(Board::all()->random()->id);
             }
-            
+
             // Create and add column to the random board
             Column::factory($howManyColumnsPerBoardCreate, [
                     'board_id' => Board::all()->random()->id
@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
             Card::factory($howManyCardsPerUCCreate)
                 ->state([
                     'column_id' => Column::all()->random()->id,
-                    'executor_id' => ($user->id % 2 === 0) ? $user->id : NULL
+                    'executor_id' => ($user->id % 2 === 0) ? $user->id : null
                 ])
                 ->for($user)
                 ->create();
@@ -70,7 +70,6 @@ class DatabaseSeeder extends Seeder
                 ])
                 ->create();
 
-            
             $notification = Notification::factory()
                 ->state([
                     'card_id' => Card::all()->random()->id
@@ -86,7 +85,6 @@ class DatabaseSeeder extends Seeder
 
             $notification->subscriptions()
                 ->attach(Subscription::all()->random()->id);
-            
         });
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BoardFactory extends Factory
@@ -15,7 +14,7 @@ class BoardFactory extends Factory
     public function definition()
     {
         return [
-            'title'=> $this->faker->sentence(6)
+            'title' => $this->faker->sentence(6)
         ];
     }
 }
