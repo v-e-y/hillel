@@ -9,8 +9,6 @@ use App\Models\Comment;
 use App\Models\Notification;
 use App\Models\Subscription;
 use App\Models\User;
-use BoardUser;
-use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,95 +19,74 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //$howManyUsersToCreate = (int) $this->command->ask('How many users do you need?', 10);
-/*
-        $users = User::factory($howManyUsersToCreate)->create();
+        // Ask user how many items he wants to create/generate
+        $howManyUsersToCreate = (int) $this->command->ask('How many users do you need?', 10);
+        $howManyBoardsToCreate = (int) $this->command->ask('How many Boards do you need?', 1);
+        $howManyColumnsPerBoardCreate = (int) $this->command->ask('How many Columns per Board do you need?', 1);
+        $howManyCardsPerUCCreate = (int) $this->command->ask('How many Cards per User and Card do you need?', 1);
+        $howManyCommentsCreate = (int) $this->command->ask('How many Comments you need?', 1);
 
-        $users->each(function($user) {
-            if ($user->id % 2 === 0) {
-                $boards = Board::factory()
-                    ->state([
-                        'user_id' => $user->id
-                    ])
-                    ->create();
+        // Create User(s)
+        $user = User::factory($howManyUsersToCreate)->create();
 
-                Column::factory()
-                    ->for($boards)
-                    ->create();
-
-                $cards = Card::factory()
-                    ->state([
-                        'column_id' => Column::all()->random()->id
-                    ])
-                    ->for($user)
-                    ->create();
-
-                Comment::factory()
-                    ->for($user)
-                    ->for($cards)
-                    ->create();
-                
-            } else {
-                 
-                Board::factory()
-                    ->hasUsers()
-                    ->state([
-                        'user_id' => $user->id
-                    ])
-                    ->for($user)
-                    ->create();
-            }
-        });
-
-        $users::factory()->hasBoards(1, [
-            'user_id' => $users->id
-        ])->create();
-
-        $notification = Notification::factory()
-                            ->for($cards)
-                            ->create();
-
-        $subscription = Subscription::factory()
-                            ->for($cards)
-                            ->for($users)
-                            ->create();
-        */
-
-        User::factory(10)->create()->each(function($user) {
-            Board::factory()
+        $user->each(function($user) use (
+                $howManyBoardsToCreate, 
+                $howManyColumnsPerBoardCreate,
+                $howManyCardsPerUCCreate,
+                $howManyCommentsCreate
+        ) {
+            // Create Board with random user (which will be owner) id
+            Board::factory($howManyBoardsToCreate)
                 ->state([
-                    'user_id' => User::all()->random()->id
+                    'author_id' => User::all()->random()->id
                 ])
                 ->create();
-                
-            $user->boards()->attach(Board::all()->random());
-
-            Column::factory([
+            
+            // Made users which id is even a member of the boards
+            if ($user->id % 2 === 0) {
+                $user->boardsMember()->attach(Board::all()->random()->id);
+            }
+            
+            // Create and add column to the random board
+            Column::factory($howManyColumnsPerBoardCreate, [
                     'board_id' => Board::all()->random()->id
                 ])
                 ->create();
 
-            $card = Card::factory()
-                        ->state([
-                            'column_id' => Column::all()->random()->id
-                        ])
-                        ->for($user)
-                        ->create();
-
-            Comment::factory()
+            // Create card(s) for all users
+            Card::factory($howManyCardsPerUCCreate)
+                ->state([
+                    'column_id' => Column::all()->random()->id,
+                    'executor_id' => ($user->id % 2 === 0) ? $user->id : NULL
+                ])
                 ->for($user)
-                ->for($card)
                 ->create();
 
-            Notification::factory()
-                ->for($card)
+            // Create comment(s) for all users
+            Comment::factory($howManyCommentsCreate)
+                ->state([
+                    'user_id' => User::all()->random()->id,
+                    'card_id' => Card::all()->random()->id
+                ])
+                ->create();
+
+            
+            $notification = Notification::factory()
+                ->state([
+                    'card_id' => Card::all()->random()->id
+                ])
                 ->create();
 
             Subscription::factory()
-                ->for($card)
-                ->for($user)
+                ->state([
+                    'user_id' => User::all()->random()->id,
+                    'card_id' => Card::all()->random()->id
+                ])
                 ->create();
 
+            $notification->subscriptions()
+                ->attach(Subscription::all()->random()->id);
+            
         });
     }
 }

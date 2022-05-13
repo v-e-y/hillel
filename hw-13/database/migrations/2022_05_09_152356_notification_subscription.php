@@ -17,6 +17,7 @@ class NotificationSubscription extends Migration
             $table->id();
             $table->foreignId('notification_id')->constrained();
             $table->foreignId('subscription_id')->constrained();
+            $table->dateTime('viewed_at')->nullable();
             $table->timestamps();
         });
     }

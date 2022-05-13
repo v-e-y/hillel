@@ -16,13 +16,13 @@ class CreateBoardsTable extends Migration
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
+            $table->unsignedBigInteger('author_id');
             $table->timestamps();
         });
 
         Schema::table('boards', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained();
+            $table->foreign('author_id')->references('id')->on('users');
         });
-
     }
 
     /**
