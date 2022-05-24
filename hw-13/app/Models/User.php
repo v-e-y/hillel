@@ -46,7 +46,6 @@ class User extends Authenticatable
 
     /**
      * Get all of the boards for the User
-     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function boards(): HasMany
@@ -69,7 +68,7 @@ class User extends Authenticatable
      */
     public function cards(): HasMany
     {
-        return $this->hasMany(Card::class, 'author_id');
+        return $this->hasMany(Card::class, 'author_id', 'id');
     }
 
     /**

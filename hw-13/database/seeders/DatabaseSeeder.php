@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $howManyUsersToCreate = (int) $this->command->ask('How many users do you need?', 10);
         $howManyBoardsToCreate = (int) $this->command->ask('How many Boards do you need?', 1);
         $howManyColumnsPerBoardCreate = (int) $this->command->ask('How many Columns per Board do you need?', 1);
-        $howManyCardsPerUCCreate = (int) $this->command->ask('How many Cards per User and Card do you need?', 1);
+        $howManyCardsPerUCreate = (int) $this->command->ask('How many Cards per User and Card do you need?', 1);
         $howManyCommentsCreate = (int) $this->command->ask('How many Comments you need?', 1);
 
         // Create User(s)
@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         $user->each(function ($user) use (
             $howManyBoardsToCreate,
             $howManyColumnsPerBoardCreate,
-            $howManyCardsPerUCCreate,
+            $howManyCardsPerUCreate,
             $howManyCommentsCreate
         ) {
             // Create Board with random user (which will be owner) id
@@ -54,12 +54,12 @@ class DatabaseSeeder extends Seeder
                 ->create();
 
             // Create card(s) for all users
-            Card::factory($howManyCardsPerUCCreate)
+            Card::factory($howManyCardsPerUCreate)
                 ->state([
+                    'author_id' => User::all()->random()->id,
                     'column_id' => Column::all()->random()->id,
                     'executor_id' => ($user->id % 2 === 0) ? $user->id : null
                 ])
-                ->for($user)
                 ->create();
 
             // Create comment(s) for all users
