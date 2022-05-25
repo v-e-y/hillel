@@ -6,7 +6,7 @@ CMD: cd hw-13
 ```
 
 ## Prepare project
-- rename '.env.example' file to '.env'
+- rename '.env.example' file to '.env' which contains in hw-13 folder
 - Run commands: 
 ```
 CMD: composer update
