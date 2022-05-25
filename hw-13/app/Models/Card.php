@@ -27,7 +27,7 @@ class Card extends Model
      * Get the user that owns the Board
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function author(): BelongsTo
+    public function cardAuthor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
     }
@@ -36,7 +36,7 @@ class Card extends Model
      * Get the user that owns the Card
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function userExecutor(): BelongsTo
+    public function executor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'executor_id');
     }

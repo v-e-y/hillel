@@ -21,3 +21,62 @@ $user->cards()
 $user->cards()->get()
 $user->boards()->get()
 exit
+$u = User::where('id', 1)->first()
+$u->cards()
+$c = Card::where('id', 1)->first()
+$c->cardAuthor()
+exit
+$c = Card::where('id', 1)->first()
+$c->cardAuthor()
+$c->userExecutor()
+$c->userExecutor()->id
+$c->userExecutor()
+$u = User::where('id', 1)->first()
+$u->comments()
+$u = User::where('id', 4)->first()
+$u->comments()
+$c->cardAuthor()
+$us = $c->cardAuthor()
+$us
+$u->cards()->create()
+$u->cards()->create()
+$u->cards()->create()
+exit
+$u = User::where('id', 4)->first()
+$u->cards()->create()
+$u->boards
+$u->cards
+$u->cards()
+$u->cards
+clear
+$b = Board::where('id', 1)->first()
+$b->user
+$b->author
+$b->usersMembers
+$u = User::where('id', 4)->first()
+$u->cards
+exit
+$u = User::where('id', 4)->first()
+$u->board
+$u->boards
+$u->cards
+$u->card
+$b = Board::where('id', 1)->first()
+$b->author
+$b->author->columns
+$b = Board::where('id', 1)->first()
+$b->author
+$b->author
+exit
+$b = Board::where('id', 1)->first()
+$b->author
+$b->author->columns
+$u = User::where('id', 4)->first()
+$u->cards
+$u = User::where('id', 5)->first()
+$u->cards
+$c = Card::where('id', 7)->first()
+$c->cardAuthor
+exit
+$c = Card::where('id', 3)->first()
+$c->userExecutor

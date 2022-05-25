@@ -50,7 +50,25 @@ class User extends Authenticatable
      */
     public function boards(): HasMany
     {
-        return $this->hasMany(Board::class, 'author_id', 'id');
+        return $this->hasMany(Board::class, 'author_id');
+    }
+
+    /**
+     * Get all of the cards for the User
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cards(): HasMany
+    {
+        return $this->hasMany(Card::class, 'author_id');
+    }
+
+    /**
+     * Get all of the cards for the User
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cardExecutor(): HasMany
+    {
+        return $this->hasMany(Card::class, 'executor_id');
     }
 
     /**
@@ -60,24 +78,6 @@ class User extends Authenticatable
     public function boardsMember(): BelongsToMany
     {
         return $this->belongsToMany(Board::class)->withTimestamps();
-    }
-
-    /**
-     * Get all of the cards for the User
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function cards(): HasMany
-    {
-        return $this->hasMany(Card::class, 'author_id', 'id');
-    }
-
-    /**
-     * Get all of the cards for the User
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function cardsExecutor(): HasMany
-    {
-        return $this->hasMany(Card::class, 'executor_id');
     }
 
     /**
