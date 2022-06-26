@@ -54,7 +54,7 @@ class CourseSelection
             $this->setCourseYear($castsData[0][3]);
 
         // if third part of given string is an integer(s) set it as course year and four part as course semester
-        } elseif(preg_match("/^[0-9]+$/", $castsData[0][2]) && preg_match("/^[A-Za-z]+$/", $castsData[0][3])) {
+        } elseif (preg_match("/^[0-9]+$/", $castsData[0][2]) && preg_match("/^[A-Za-z]+$/", $castsData[0][3])) {
             $this->setCourseYear($castsData[0][2]);
             $this->setCourseSemester($castsData[0][3]);
         } else {
@@ -78,40 +78,43 @@ class CourseSelection
 
     private function setCourseYear(string $year): string
     {
-        return $this->year = (mb_strlen($year) == 2)? '20' . $year : $year;
+        return $this->year = (mb_strlen($year) == 2) ? '20' . $year : $year;
     }
 
     private function setCourseSemester(string $semester): string
     {
-        return $this->semester = (mb_strlen($semester) == 1)? ucfirst($this->semesters[$semester]) : ucfirst($semester);
+        return $this->semester = (mb_strlen($semester) == 1) ? ucfirst($this->semesters[$semester]) : ucfirst($semester);
     }
-    
+
     /**
     * Getters
     */
 
-    public function getCourseDepartment(bool $withText = Null): string
+    public function getCourseDepartment(bool $withText = null): string
     {
-        return ($withText)? 'Department: ' . $this->department : $this->department;
+        return ($withText) ? 'Department: ' . $this->department : $this->department;
     }
 
-    public function getCourseNumber(bool $withText = Null): string
+    public function getCourseNumber(bool $withText = null): string
     {
-        return ($withText)? 'Course Number: ' . $this->courseNumber : $this->courseNumber;
+        return ($withText) ? 'Course Number: ' . $this->courseNumber : $this->courseNumber;
     }
 
-    public function getCourseYear(bool $withText = Null): string
+    public function getCourseYear(bool $withText = null): string
     {
-        return ($withText)? 'Year: ' . $this->year : $this->year;
+        return ($withText) ? 'Year: ' . $this->year : $this->year;
     }
 
-    public function getCourseSemester(bool $withText = Null): string
+    public function getCourseSemester(bool $withText = null): string
     {
-        return ($withText)? 'Semester: ' . $this->semester : $this->semester;
+        return ($withText) ? 'Semester: ' . $this->semester : $this->semester;
     }
 
     public function __toString()
     {
-        return $this->getCourseDepartment(true) . '<br>' . $this->getCourseNumber(true) . '<br>' . $this->getCourseYear(true) . '<br>' . $this->getCourseSemester(true);
+        return $this->getCourseDepartment(true) . '<br>' . 
+            $this->getCourseNumber(true) . '<br>' . 
+            $this->getCourseYear(true) . '<br>' . 
+            $this->getCourseSemester(true);
     }
 }

@@ -12,4 +12,3 @@ $s = new CourseSelection('CS111 2016 w');
 echo $t;
 echo '<br>';
 echo $s;
-//var_dump();

@@ -1,7 +1,8 @@
 ## Download project
-
+```
 CMD: git clone https://github.com/v-e-y/hillel.git .
 CMD: cd [download folder]\random_tasks\course_selection
+```
 
 ## Run project
 ```

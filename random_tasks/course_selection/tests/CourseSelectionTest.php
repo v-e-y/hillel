@@ -18,7 +18,7 @@ final class CourseSelectionTest extends TestCase
     public function testClassConstructor()
     {
         $inputString = new CourseSelection($this->exampleStrings[0]);
- 
+
         $this->assertNotEmpty($inputString->__toString());
     }
 
@@ -26,10 +26,10 @@ final class CourseSelectionTest extends TestCase
     {
         $method = new ReflectionMethod(CourseSelection::class, 'prepareGivenString');
 
-        $method->setAccessible(TRUE);
+        $method->setAccessible(true);
 
         $this->assertSame(
-            'cs 111 f2016', 
+            'cs 111 f2016',
             $method->invoke(
                 new CourseSelection($this->exampleStrings[3]),
                 $this->exampleStrings[3]
