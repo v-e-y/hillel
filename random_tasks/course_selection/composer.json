@@ -1,0 +1,17 @@
+{
+    "name": "v-e-y/course-selection",
+    "require": {
+        "phpunit/phpunit": "9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Course_Selection\\Src\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "V-E-Y",
+            "email": "v.eduard.y@gmail.com"
+        }
+    ]
+}
