@@ -13,10 +13,10 @@ class CourseSelection
     private string $semester;
 
     private array $semesters = [
+        's' => 'Spring',
         'f' => 'Fall',
-        'w' => 'Winter',
-        's' => 'Summer',
-        'a' => 'Autumn'
+        'su' => 'Summer',
+        'w' => 'Winter'
     ];
 
     public function __construct(string $inputString)
