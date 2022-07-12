@@ -15,3 +15,5 @@ yarn-error.log
 /.vscode
 /app-data
 data
+.composer
+.bash_history
