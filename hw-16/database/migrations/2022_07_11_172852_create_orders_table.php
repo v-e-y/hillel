@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('title', 255);
-            $table->unsignedBigInteger('orders_statuses_id')->default(0);
+            $table->string('order_status', 32)->default('New');
             // We will store numbers multiplied by 100.
             $table->bigInteger('amount');
             $table->softDeletes();

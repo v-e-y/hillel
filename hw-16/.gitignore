@@ -17,3 +17,4 @@ yarn-error.log
 data
 .composer
 .bash_history
+.config/psysh/psysh_history

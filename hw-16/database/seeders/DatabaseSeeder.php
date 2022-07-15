@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Preset Order statuses.
-        $ordersStatuses = ['In process', 'Complete', 'New'];
+        $ordersStatuses = ['In process', 'Completed', 'New'];
 
         // Insert statuses
         DB::insert(
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         $users->each(function($user) use ($ordersStatuses) {
             Order::factory()
                 ->state([
-                    'orders_statuses_id' => rand(1, count($ordersStatuses)),
+                    'order_status' => Arr::random($ordersStatuses),
                     'user_id' => $user->id
                 ])
                 ->create();

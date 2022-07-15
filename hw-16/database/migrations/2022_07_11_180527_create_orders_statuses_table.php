@@ -14,15 +14,15 @@ class CreateOrdersStatusesTable extends Migration
     public function up()
     {
         Schema::create('orders_statuses', function (Blueprint $table) {
-            $table->id();
+            // $table->id();
             $table->string('status', 32)->unique();
             $table->softDeletes();
             $table->timestamps();
         });
 
         Schema::table('orders', function (Blueprint $table) {
-            $table->foreign('orders_statuses_id')
-                ->references('id')
+            $table->foreign('order_status')
+                ->references('status')
                 ->on('orders_statuses');
         });
     }
@@ -34,6 +34,7 @@ class CreateOrdersStatusesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('orders_statuses');
     }
 }
