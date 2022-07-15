@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace App\Services\Bots\Telegram;
 
 use App\Models\Order;
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Client\Response as ClientResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-class Telegram extends Model
+class Telegram
 {
-
-    const UPDATE_LIMIT = 1;
-
     // Bot name
     private static string $botName;
     // Bot id
@@ -26,16 +23,16 @@ class Telegram extends Model
     private static string $botApiUrl;
     // Default bot message
     private static string $defMessage;
+    // Default error message
     private static string $defErrMessage;
 
     private static int $lastUpdateId = 0;
     
+    /*
+    * Initialize static properties
+    */
     protected static function booting()
     {
-        //parent::boot();
-        /*
-        * Initialize static properties
-        */
         self::$botName = config('bots.telegram.name');
         self::$id = config('bots.telegram.id');
         self::$botApiToken = config('bots.telegram.api_token');
@@ -44,9 +41,6 @@ class Telegram extends Model
         self::$defErrMessage = config('bots.telegram.def_err_message');
         
     }
-
-
-    ////////////////////////////////////////////////////////////
 
     /**
      * Get messages and response it.
@@ -57,41 +51,21 @@ class Telegram extends Model
         static::booting();
 
         $response = Http::get(static::$botApiUrl . static::$botApiToken . '/getUpdates', [
-            'offset' => self::$lastUpdateId,
-            // 'limit' => self::UPDATE_LIMIT
+            'offset' => self::$lastUpdateId
         ]);
 
-        if ($response->ok() && ! empty($response->json('result'))) {
-
+        if ($response->ok() && !empty($response->json('result'))) {
             foreach ($response->json('result') as $value) {
-                
-                // If the message is first in chat, like new user.
-                if (preg_match('|^[/start]+$|', $value['message']['text'])) {
-                    static::sendMessage(
-                        $value['message']['chat']['id'],
-                        self::$defMessage
-                    );
-                // If message contains only digits. We will try to send order data
-                } elseif(preg_match('/^[0-9]+$/', $value['message']['text'])) {
-                    static::sendMessage(
-                        $value['message']['chat']['id'],
-                        self::getOrderInfoMessage($value['message']['text'])
-                    );
-                } else {
-                    // If message is not number or first message.
-                    // We will send default error message.
-                    static::sendMessage(
-                        $value['message']['chat']['id'],
-                        self::$defErrMessage
-                    );
-                }
+                static::sendMessage(
+                    $value['message']['chat']['id'],
+                    static::getMessage($value['message']['text'])
+                );
 
-                
                 static::$lastUpdateId = $value['update_id'] + 1;
             }
         }
 
-        return throw new \Exception("Error, haven't messages", 1);
+        return throw new \Exception("Info, haven't messages", 1);
     }
 
     /**
@@ -107,9 +81,36 @@ class Telegram extends Model
             'text' => $message
         ]);
     }
+
+    /**
+     * Get/filter messages
+     * @param string $botMessage
+     * @return string
+     */
+    private static function getMessage(string $botMessage): string
+    {
+        // If first in chat, like new user.
+        if (preg_match('|^[/start]+$|', $botMessage)) {
+
+            return static::$defMessage;
+
+        // If message contains only digits. We will try to send order data
+        } elseif(preg_match('/^[0-9]+$/', $botMessage)) {
+
+            return static::getOrderInfoMessage($botMessage);
+
+        } else {
+            // If message is not number or first message.
+            // We will send default error message.
+            return static::$defErrMessage;
+        }
+
+        throw new \Exception("Error retrieving message", 1);
+    }
     
     /**
      * Get/prepare message about order to sent it.
+     * @param string $orderNumber
      * @return string
      */
     private static function getOrderInfoMessage(string $orderNumber): string
@@ -127,15 +128,15 @@ class Telegram extends Model
             );
         }
 
-        return throw new \Exception("Error Processing build message", 1);
+        return throw new \Exception("Error retrieving order info", 1);
     }
 
     /**
-     * Magic
+     * Magics
      */
 
     public function __toString()
     {
-        return self::$botName;
+        return static::$botName;
     }
 }
