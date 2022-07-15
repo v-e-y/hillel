@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Services\Bots\Telegram;
 
 use App\Models\Order;
-// use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Client\Response as ClientResponse;
-use Illuminate\Http\Response;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class Telegram
@@ -26,7 +25,7 @@ class Telegram
     // Default error message
     private static string $defErrMessage;
 
-    private static int $lastUpdateId = 0;
+    private static ?int $lastUpdateId = null;
     
     /*
     * Initialize static properties
@@ -39,19 +38,17 @@ class Telegram
         self::$botApiUrl = config('bots.telegram.api_url');
         self::$defMessage = config('bots.telegram.def_message');
         self::$defErrMessage = config('bots.telegram.def_err_message');
-        
     }
 
     /**
      * Get messages and response it.
-     * @return \Illuminate\Http\Client\Response
      */
-    public static function getUpdates(): ClientResponse
+    public static function getUpdates()
     {
         static::booting();
 
         $response = Http::get(static::$botApiUrl . static::$botApiToken . '/getUpdates', [
-            'offset' => self::$lastUpdateId
+            'offset' => static::$lastUpdateId
         ]);
 
         if ($response->ok() && !empty($response->json('result'))) {
@@ -64,8 +61,9 @@ class Telegram
                 static::$lastUpdateId = $value['update_id'] + 1;
             }
         }
+        // dd(static::$lastUpdateId);
 
-        return throw new \Exception("Info, haven't messages", 1);
+        return Log::info('No messages');
     }
 
     /**
@@ -74,7 +72,7 @@ class Telegram
      * @param string $message
      * @return \Illuminate\Http\Client\Response
      */
-    private static function sendMessage(int $chatId, string $message): ClientResponse
+    private static function sendMessage(int $chatId, string $message): Response
     {
         return Http::get(static::$botApiUrl . static::$botApiToken . '/sendMessage', [
             'chat_id' => $chatId,
