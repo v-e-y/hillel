@@ -33,9 +33,9 @@ class DatabaseSeeder extends Seeder
 
         // Create Users.
         $users = User::factory(10)->create();
-        
+
         // Create Order(s) for each user.
-        $users->each(function($user) use ($ordersStatuses) {
+        $users->each(function ($user) use ($ordersStatuses) {
             Order::factory()
                 ->state([
                     'order_status' => Arr::random($ordersStatuses),

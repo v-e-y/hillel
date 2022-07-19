@@ -11,7 +11,7 @@ class Order extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    
+
     /**
      * Getters
      */
@@ -20,7 +20,7 @@ class Order extends Model
     {
         return Order::where('id', $orderId)
             ->select('id', 'title', 'order_status', 'amount')
-            ->first();   
+            ->first();
     }
 
     /**

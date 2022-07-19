@@ -26,7 +26,7 @@ final class OrderInfoTelegramBot extends Model
     private static string $defMessage;
     // Default error message
     private static string $defErrMessage;
-    
+
     /*
     * Initialize static properties
     */
@@ -50,7 +50,6 @@ final class OrderInfoTelegramBot extends Model
         ]);
 
         if ($response->ok() && !empty($response->json('result'))) {
-            
             foreach ($response->json('result') as $key => $value) {
                 $this->sendMessage(
                     $value['message']['chat']['id'],
@@ -99,13 +98,13 @@ final class OrderInfoTelegramBot extends Model
         // If message contains only digits. We will try to send order data
         if (preg_match('/^[0-9]+$/', $botMessage['text'])) {
             return $this->getOrderInfoMessage($botMessage['text']);
-        } 
-        
+        }
+
         // If message is not number or first message.
         // We will send default error message.
         return static::$defErrMessage;
     }
-    
+
     /**
      * Get/prepare message about order to sent it.
      * @param string $orderNumber
@@ -122,7 +121,10 @@ final class OrderInfoTelegramBot extends Model
 
             return sprintf(
                 $message,
-                $orderData->id, $orderData->order_status, $orderData->title, $orderData->amount
+                $orderData->id,
+                $orderData->order_status,
+                $orderData->title,
+                $orderData->amount
             );
         }
 

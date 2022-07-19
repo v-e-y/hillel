@@ -14,7 +14,7 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'title'=> $this->faker->sentence(3),
+            'title' => $this->faker->sentence(3),
             'amount' => $this->faker->numberBetween(100, 999) * 100
         ];
     }
