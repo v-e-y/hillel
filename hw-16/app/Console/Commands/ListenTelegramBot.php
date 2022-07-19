@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Bots\Telegram\Telegram;
+use App\Services\Bots\Telegram\OrderInfoTelegramBot;
 use Illuminate\Console\Command;
 
 class ListenTelegramBot extends Command
@@ -36,8 +36,8 @@ class ListenTelegramBot extends Command
      *
      * @return int
      */
-    public function handle(Telegram $telegram)
+    public function handle(OrderInfoTelegramBot $telegram)
     {
-        return $telegram::getUpdates();
+        return $telegram->getUpdates();
     }
 }

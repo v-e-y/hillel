@@ -26,6 +26,11 @@ class DatabaseSeeder extends Seeder
             $ordersStatuses
         );
 
+        DB::table('last_bot_update_ids')->insert([
+            'update_id' => 0,
+            'bot_id' => 5589222126
+        ]);
+
         // Create Users.
         $users = User::factory(10)->create();
         
