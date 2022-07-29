@@ -14,3 +14,7 @@ yarn-error.log
 /.idea
 /.vscode
 /app-data
+data
+.composer
+.bash_history
+.config/psysh/psysh_history
