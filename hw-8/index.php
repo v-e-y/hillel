@@ -15,17 +15,25 @@ $product = new \Hillel\Entities\Product(
 );
 
 $attributes = $product->attributes;
+
 $attributes['year'] = 2021;
+
 $product->attributes = $attributes;
 
 $product->price = 18500;
 
-$product->updatedAt = time();          
+$product->updatedAt = time();
+
+echo $product->creator;
+
 echo '<pre>';
-echo $product;
-echo PHP_EOL;
-echo $product->price;
-echo PHP_EOL;
+
+echo $product . PHP_EOL;
+
+echo $product->price . PHP_EOL;
+
 print_r($product->attributes);
+
 echo PHP_EOL;
+
 echo $product->updatedAt;
