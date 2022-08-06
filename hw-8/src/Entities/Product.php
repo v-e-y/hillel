@@ -16,13 +16,17 @@ class Product
 
     private int $updatedAt;
 
-    protected $casts = [
+    protected array $casts = [
         'price' => MoneyCast::class,
         'attributes' => ArrayCast::class,
         'updatedAt' => DateTimeCast::class,
     ];
 
-    public function __construct($price, $attributes, $updatedAt)
+    public function __construct(
+        $price,
+        $attributes,
+        $updatedAt
+    )
     {
         $this->price = $price;
         $this->attributes = $attributes;
@@ -31,30 +35,25 @@ class Product
 
     public function __set($variable, $value)
     {
-        $this->$variable = $this->casts[$variable]::set($value);
+        if ($this->inCasts($variable)) {
+            $this->$variable = $this->casts[$variable]::set($value);
+        }
     }
 
     public function __get($variable)
     {
-        return $this->casts[$variable]::get($this->$variable);
+        if ($this->inCasts($variable)) {
+            return $this->casts[$variable]::get($this->$variable);
+        }
+    }
+
+    private function inCasts(string $property): bool
+    {
+        return array_key_exists($property, $this->casts);
     }
 
     public function __toString(): string
     {
-        $productAttributes = '';
-
-        foreach (ArrayCast::get($this->attributes) as $key => $value) {
-            $productAttributes .= ' ' . $key . ' - ' . $value;
-
-            if ($key === array_key_last(ArrayCast::get($this->attributes))) {
-                $productAttributes .= '.';
-            } else {
-                $productAttributes .= ',';
-            }
-        }
-
-        return '<strong>Product price</strong> - ' . MoneyCast::get($this->price) . '<br>'
-            . '<strong>Attributes</strong>: ' . $productAttributes . '<br>'
-            . '<strong>And created or updated</strong>: ' . DateTimeCast::get($this->updatedAt);
+        return print_r($this->attributes, true);
     }
 }
